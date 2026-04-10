@@ -37,6 +37,7 @@
             padding: 10px 20px;
             cursor: pointer;
             letter-spacing: 2px;
+            font-size: 0.9rem;
         }
 
         .container {
@@ -45,21 +46,21 @@
             max-width: 800px;
             opacity: 0;
             transition: opacity 1.5s ease;
-            transform: translateY(-10px);
+            transform: translateY(-15px);
         }
 
         h1 { 
-            font-size: clamp(1.5rem, 6vw, 2.2rem);
-            margin-bottom: 10px; 
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            margin-bottom: 8px; 
             font-weight: normal;
             letter-spacing: 1px;
         }
 
         .description {
             color: #8b0000;
-            font-size: clamp(0.7rem, 3vw, 0.85rem);
-            margin-bottom: 40px;
-            max-width: 500px;
+            font-size: clamp(0.65rem, 2.5vw, 0.8rem);
+            margin-bottom: 45px;
+            max-width: 450px;
             margin-left: auto;
             margin-right: auto;
             line-height: 1.4;
@@ -67,52 +68,54 @@
         
         .timer { 
             display: flex; 
-            gap: 10px; 
+            gap: 12px; 
             font-size: clamp(1.8rem, 8vw, 3.2rem); 
             justify-content: center; 
             align-items: baseline;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .timer-group {
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-width: 50px;
+            min-width: 55px;
         }
 
         .label { 
-            font-size: 0.5rem; 
+            font-size: 0.45rem; 
             color: #8b0000; 
             margin-top: 5px;
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .separator {
             font-size: 1.5rem;
-            padding-bottom: 15px;
-            opacity: 0.6;
+            padding-bottom: 18px;
+            opacity: 0.4;
         }
 
         .progress-container { 
-            width: 85%; 
+            width: 80%; 
             margin: 0 auto; 
         }
         .progress { 
             width: 100%; 
             height: 3px; 
-            background: #1a1a1a;
+            background: #111;
             margin-bottom: 8px;
         }
         .progress-bar { 
             height: 100%; 
             width: 0%; 
-            background: #444; /* Warna abu-abu seperti gambar 2 */
+            background: #444; 
         }
         
         #percentText { 
             color: #8b0000; 
-            font-size: 0.65rem; 
+            font-size: 0.6rem; 
+            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -135,4 +138,80 @@
                 <div id="days">00</div>
                 <div class="label">Days</div>
             </div>
-            
+            <div class="timer-group">
+                <div id="mins">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="timer-group">
+                <div id="secs">00</div>
+                <div class="label">Seconds</div>
+            </div>
+            <div class="timer-group">
+                <div id="ms">000</div>
+                <div class="label">Ms</div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+            <div id="percentText">0.0% complete</div>
+        </div>
+    </div>
+
+    <script>
+        const tickingAudio = new Audio("dragon-studio-slow-cinematic-clock-ticking-405471 (1).mp3"); 
+        tickingAudio.loop = true;
+
+        // Target: 5 Mei 2028 Jam 16:00 WIB
+        const targetDate = new Date("2028-05-05T16:00:00+07:00").getTime();
+        // Start: 10 Mei 2026 Jam 22:28 WIB
+        const startDate = new Date("2026-05-10T22:35:00+07:00").getTime();
+
+        function initExperience() {
+            tickingAudio.play().catch(e => console.log("Audio terblokir, klik tombol lagi."));
+            document.getElementById('overlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('overlay').style.display = 'none';
+                document.getElementById('mainApp').style.opacity = '1';
+            }, 800);
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('mainApp').innerHTML = "<h1>MISSION ACCOMPLISHED</h1>";
+                return;
+            }
+
+            // Rumus hitung mundur agar menit tidak meluap
+            const m_total = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.4375));
+            const d_total = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.4375)) / (1000 * 60 * 60 * 24));
+            const mn = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const sc = Math.floor((diff % (1000 * 60)) / 1000);
+            const ms = Math.floor(diff % 1000);
+
+            document.getElementById("months").innerText = m_total;
+            document.getElementById("days").innerText = d_total;
+            document.getElementById("mins").innerText = mn; 
+            document.getElementById("secs").innerText = String(sc).padStart(2, '0');
+            document.getElementById("ms").innerText = String(ms).padStart(3, '0');
+
+            const totalDuration = targetDate - startDate;
+            const elapsed = now - startDate;
+            let percent = (elapsed / totalDuration) * 100;
+
+            if (percent < 0) percent = 0;
+            if (percent > 100) percent = 100;
+
+            document.getElementById("progressBar").style.width = percent + "%";
+            document.getElementById("percentText").innerText = percent.toFixed(1) + "% complete";
+        }
+
+        setInterval(updateCountdown, 33);
+        updateCountdown();
+    </script>
+</body>
+</html>
