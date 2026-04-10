@@ -10,19 +10,14 @@
         body {
             height: 100vh;
             width: 100%;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ff0000;
-            
-            /* Warna cadangan */
-            background-color: #000000; 
-            
-            /* bg */
+            background-color: #000; 
             background-image: url('background.jpg');
             background-repeat: no-repeat;
             background-position: center;
             background-attachment: fixed;
             background-size: cover;
-            
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,16 +25,20 @@
             position: relative;
         }
 
-        /* Lapisan Hitam Transparan agar teks tetap jelas terbac */
+        /* Overlay gelap agar background tidak menabrak teks */
         body::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.7); 
+            background: rgba(0, 0, 0, 0.75); 
             z-index: 1;
         }
 
-        /* TOMBOL AWAL (OVERLAY) */
+        /* EFEK GLOW MERAH NYALA */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -54,56 +53,96 @@
             background: transparent;
             color: #ff0000;
             border: 2px solid #ff0000;
-            padding: 15px 30px;
+            padding: 20px 40px;
             cursor: pointer;
             text-align: center;
+            box-shadow: inset 0 0 15px rgba(255, 0, 0, 0.2), 0 0 15px rgba(255, 0, 0, 0.2);
         }
 
-        .btn-start h2 { font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 5px; }
-        .btn-start p { font-size: 0.7rem; text-transform: uppercase; opacity: 0.8; }
+        .btn-start h2 { font-size: 2rem; letter-spacing: 5px; margin-bottom: 5px; text-shadow: 0 0 10px red; }
+        .btn-start p { font-size: 0.9rem; text-transform: uppercase; opacity: 0.8; }
 
-        /* KONTEN UTAMA */
         .container {
             text-align: center;
             width: 95%;
-            max-width: 800px;
+            max-width: 900px;
             display: none; 
             z-index: 2;
         }
 
-        h1 { font-size: clamp(1.4rem, 5vw, 2.2rem); margin-bottom: 10px; letter-spacing: 1px; }
-        .description { color: #8b0000; font-size: 0.8rem; margin-bottom: 40px; }
-        
-        .timer { 
-            display: flex; gap: 10px; 
-            font-size: clamp(1.8rem, 8vw, 3.2rem); 
-            justify-content: center; align-items: baseline; margin-bottom: 25px;
+        h1 { 
+            font-size: clamp(2rem, 8vw, 3.5rem); 
+            margin-bottom: 15px; 
+            letter-spacing: 2px;
+            font-weight: bold;
         }
 
-        .timer-group { display: flex; flex-direction: column; align-items: center; min-width: 55px; }
-        .label { font-size: 0.5rem; color: #8b0000; margin-top: 5px; text-transform: uppercase; }
-        .separator { font-size: 1.5rem; padding-bottom: 15px; opacity: 0.4; }
+        .description { 
+            color: #b30000; 
+            font-size: clamp(0.9rem, 3vw, 1.2rem); 
+            margin-bottom: 50px; 
+            font-style: italic;
+        }
+        
+        /* UKURAN TIMER DIPERBESAR */
+        .timer { 
+            display: flex; 
+            gap: 15px; 
+            font-size: clamp(2.5rem, 10vw, 5rem); /* Angka jauh lebih besar */
+            justify-content: center; 
+            align-items: baseline; 
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
 
-        .progress-container { width: 80%; margin: 0 auto; }
-        .progress { width: 100%; height: 3px; background: #222; margin-bottom: 8px; }
-        .progress-bar { height: 100%; width: 0%; background: #555; }
-        #percentText { color: #8b0000; font-size: 0.6rem; }
+        .timer-group { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-width: 80px; 
+        }
+
+        /* LABEL (MONTHS, DAYS, DLL) DIPERBESAR */
+        .label { 
+            font-size: clamp(0.7rem, 2vw, 1rem); 
+            color: #ff3333; 
+            margin-top: 10px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            font-weight: normal;
+        }
+
+        .separator { 
+            font-size: 2.5rem; 
+            padding-bottom: 40px; 
+            opacity: 0.6; 
+        }
+
+        .progress-container { width: 85%; margin: 0 auto; }
+        .progress { width: 100%; height: 6px; background: #220000; margin-bottom: 12px; border-radius: 10px; overflow: hidden; }
+        .progress-bar { 
+            height: 100%; 
+            width: 0%; 
+            background: linear-gradient(90deg, #660000, #ff0000); 
+            box-shadow: 0 0 15px #ff0000;
+        }
+        #percentText { color: #ff3333; font-size: 1rem; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <div id="overlay">
         <div class="btn-start" onclick="initExperience()">
-            <h2>X PPLG 2</h2>
+            <h2 class="glow-text">X PPLG 2</h2>
             <p>Click to open</p>
         </div>
     </div>
 
     <div class="container" id="mainApp">
-        <h1>KELULUSAN X PPLG 2</h1>
-        <p class="description">Waktu tidak akan pernah berhenti sampai kamu cukup menyesal untuk menyadarinya.</p>
+        <h1 class="glow-text">KELULUSAN X PPLG 2</h1>
+        <p class="description">"Waktu tidak akan pernah berhenti sampai kamu cukup menyesal untuk menyadarinya."</p>
 
-        <div class="timer">
+        <div class="timer glow-text">
             <div class="timer-group">
                 <div id="months">00</div>
                 <div class="label">Months</div>
@@ -137,7 +176,6 @@
         const tickingAudio = new Audio("dragon-studio-slow-cinematic-clock-ticking-405471 (1).mp3"); 
         tickingAudio.loop = true;
 
-        // Anti-jeda suara
         tickingAudio.addEventListener('timeupdate', function(){
             var buffer = 0.50; 
             if(this.currentTime > this.duration - buffer){
@@ -146,13 +184,11 @@
             }
         });
 
-        // WAKTU WIB (PURWOKERTO)
         const targetDate = new Date("2028-05-05T16:00:00+07:00").getTime();
         const startDate = new Date("2026-05-10T22:28:00+07:00").getTime();
 
         function initExperience() {
             tickingAudio.play();
-            // Instan tanpa animasi redup
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
         }
@@ -162,7 +198,7 @@
             const diff = targetDate - now;
 
             if (diff <= 0) {
-                document.getElementById('mainApp').innerHTML = "<h1>MISSION ACCOMPLISHED</h1>";
+                document.getElementById('mainApp').innerHTML = "<h1 class='glow-text'>MISSION ACCOMPLISHED</h1>";
                 return;
             }
 
@@ -185,11 +221,11 @@
             if (percent > 100) percent = 100;
 
             document.getElementById("progressBar").style.width = percent + "%";
-            document.getElementById("percentText").innerText = percent.toFixed(1) + "% complete";
+            document.getElementById("percentText").innerText = percent.toFixed(2) + "% complete";
         }
 
-        setInterval(updateCountdown, 33);
-        updateCountdown();
+            setInterval(updateCountdown, 33);
+            updateCountdown();
     </script>
 </body>
 </html>
