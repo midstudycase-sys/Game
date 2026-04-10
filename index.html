@@ -160,14 +160,23 @@
     </div>
 
     <script>
-        const tickingAudio = new Audio("dragon-studio-slow-cinematic-clock-ticking-405471 (1).mp3"); 
-        tickingAudio.loop = true;
+            const tickingAudio = new Audio("dragon-studio-slow-cinematic-clock-ticking-405471 (1).mp3"); 
+    tickingAudio.loop = true;
 
-        // Target: 5 Mei 2028 Jam 16:00 WIB
-        const targetDate = new Date("2028-05-05T16:00:00+07:00").getTime();
-        // Start: 10 Mei 2026 Jam 22:28 WIB
-        const startDate = new Date("2026-05-10T22:35:00+07:00").getTime();
+    // nojeda
+    tickingAudio.addEventListener('timeupdate', function(){
+        var buffer = 0.30; 
+        if(this.currentTime > this.duration - buffer){
+            this.currentTime = 0;
+            this.play();
+        }
+    });
 
+    // 5 Mei 2028 Jam 16:00 WIB
+    const targetDate = new Date("2028-05-05T16:00:00+07:00").getTime();
+    // 10 Mei 2026 Jam 22:47 WIB
+    const startDate = new Date("2026-05-10T22:47:00+07:00").getTime();
+        
         function initExperience() {
             tickingAudio.play().catch(e => console.log("Audio terblokir, klik tombol lagi."));
             document.getElementById('overlay').style.opacity = '0';
@@ -186,7 +195,7 @@
                 return;
             }
 
-            // Rumus hitung mundur agar menit tidak meluap
+            // hitung mundur 
             const m_total = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.4375));
             const d_total = Math.floor((diff % (1000 * 60 * 60 * 24 * 30.4375)) / (1000 * 60 * 60 * 24));
             const mn = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
