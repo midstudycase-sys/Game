@@ -13,10 +13,10 @@
             font-family: Arial, sans-serif;
             color: #ff0000;
             
-            /* WARNA CADANGAN HITAM AGAR TIDAK PUTIH LAGI */
+            /* Warna cadangan */
             background-color: #000000; 
             
-            /* LANGSUNG PANGGIL NAMA FILE GAMBAR KAMU */
+            /* bg */
             background-image: url('background.jpg');
             background-repeat: no-repeat;
             background-position: center;
@@ -30,7 +30,7 @@
             position: relative;
         }
 
-        /* Lapisan Hitam Transparan agar teks tetap jelas terbaca */
+        /* Lapisan Hitam Transparan agar teks tetap jelas terbac */
         body::before {
             content: '';
             position: absolute;
@@ -139,7 +139,7 @@
 
         // Anti-jeda suara
         tickingAudio.addEventListener('timeupdate', function(){
-            var buffer = 0.35; 
+            var buffer = 0.50; 
             if(this.currentTime > this.duration - buffer){
                 this.currentTime = 0;
                 this.play();
