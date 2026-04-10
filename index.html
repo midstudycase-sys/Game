@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KELULUSAN X PPLG 2</title>
+    <title>KELULUSAN PPLG 2</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* Overlay gelap agar background tidak menabrak teks */
+        /* Overlay gelap */
         body::before {
             content: '';
             position: absolute;
@@ -34,7 +34,7 @@
             z-index: 1;
         }
 
-        /* EFEK GLOW MERAH NYALA */
+        /* Glow */
         .glow-text {
             text-shadow: 0 0 5px rgba(255, 0, 0, 0.3), 0 0 20px rgba(255, 0, 0, 0.1);
         }
@@ -84,11 +84,11 @@
             font-style: italic;
         }
         
-        /* UKURAN TIMER DIPERBESAR */
+        /* timer */
         .timer { 
             display: flex; 
             gap: 15px; 
-            font-size: clamp(2.5rem, 10vw, 5rem); /* Angka jauh lebih besar */
+            font-size: clamp(2.5rem, 10vw, 5rem); /* big */
             justify-content: center; 
             align-items: baseline; 
             margin-bottom: 30px;
@@ -102,7 +102,7 @@
             min-width: 80px; 
         }
 
-        /* LABEL (MONTHS, DAYS, DLL) DIPERBESAR */
+        /* LABEL (MONTHS, DAYS, DLL) Big */
         .label { 
             font-size: clamp(0.7rem, 2vw, 1rem); 
             color: #ff3333; 
@@ -133,13 +133,13 @@
 
     <div id="overlay">
         <div class="btn-start" onclick="initExperience()">
-            <h2 class="glow-text">X PPLG 2</h2>
+            <h2 class="glow-text">PPLG 2</h2>
             <p>Click to open</p>
         </div>
     </div>
 
     <div class="container" id="mainApp">
-        <h1 class="glow-text">KELULUSAN X PPLG 2</h1>
+        <h1 class="glow-text">KELULUSAN PPLG 2</h1>
         <p class="description">"Waktu tidak akan pernah berhenti sampai kamu cukup menyesal untuk menyadarinya."</p>
 
         <div class="timer glow-text">
