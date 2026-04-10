@@ -3,31 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Game Life - Countdown</title>
+    <title>KELULUSAN X PPLG 2</title>
     <style>
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body {
             height: 100vh;
             width: 100%;
-            font-family: 'Courier New', Courier, monospace;
+            font-family: Arial, sans-serif; /* Menggunakan font simpel seperti di gambar */
             color: #ff0000;
-            background: #050505;
-            /* Memastikan semua konten tepat di tengah layar */
+            background: #000000;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
         }
 
-        /* OVERLAY AWAL */
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 99;
@@ -37,74 +33,84 @@
         .btn-start {
             background: transparent;
             color: #ff0000;
-            border: 2px solid #ff0000;
-            padding: 15px 40px;
-            font-size: 1.2rem;
+            border: 1px solid #ff0000;
+            padding: 10px 20px;
             cursor: pointer;
-            letter-spacing: 5px;
-            font-weight: bold;
-            box-shadow: 0 0 15px rgba(255,0,0,0.3);
-            text-transform: uppercase;
+            font-size: 1rem;
         }
 
-        /* CONTAINER UTAMA */
         .container {
             text-align: center;
             width: 95%;
-            max-width: 900px;
+            max-width: 800px;
             opacity: 0;
             transition: opacity 1.5s ease;
-            /* Memberikan sedikit margin atas agar tidak terasa berat di bawah */
-            transform: translateY(-5%); 
         }
 
         h1 { 
-            font-size: clamp(1.5rem, 5vw, 2.5rem); /* Ukuran responsif */
-            letter-spacing: clamp(5px, 2vw, 12px); 
-            text-shadow: 0 0 25px #ff0000; 
-            margin-bottom: 30px; 
-        }
-        
-        /* TIMER LAYOUT */
-        .timer { 
-            display: flex; 
-            gap: 8px; 
-            font-size: clamp(1rem, 4vw, 1.8rem); 
-            font-weight: bold; 
-            justify-content: center; 
-            align-items: stretch;
+            font-size: 2.2rem; 
+            margin-bottom: 10px; 
+            font-weight: normal;
         }
 
-        .timer div { 
-            background: rgba(255, 0, 0, 0.08); 
-            padding: 15px 5px; 
-            border-radius: 5px; 
-            flex: 1; 
-            min-width: 60px;
-            border: 1px solid rgba(255,0,0,0.3); 
+        .description {
+            color: #8b0000; /* Merah gelap seperti di gambar */
+            font-size: 0.9rem;
+            margin-bottom: 50px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.4;
+        }
+        
+        /* Layout Angka Timer */
+        .timer { 
+            display: flex; 
+            gap: 15px; /* Jarak antar angka disesuaikan */
+            font-size: 3.5rem; /* Angka diperbesar */
+            justify-content: center; 
+            align-items: baseline;
+            margin-bottom: 20px;
+        }
+
+        .timer-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .label { 
-            font-size: 0.55rem; 
-            color: #fff; 
-            opacity: 0.5; 
-            margin-top: 8px; 
-            letter-spacing: 1px;
+            font-size: 0.5rem; 
+            color: #8b0000; 
+            margin-top: 5px;
             text-transform: uppercase;
         }
 
-        /* PROGRESS BAR */
-        .progress-container { width: 100%; margin: 50px auto 0; }
-        .progress { width: 100%; height: 10px; background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden; }
-        .progress-bar { height: 100%; width: 0%; background: #ff0000; box-shadow: 0 0 20px #ff0000; }
+        .separator {
+            font-size: 2rem;
+            padding-bottom: 20px;
+        }
+
+        /* Progress Bar Tipis Abu-abu */
+        .progress-container { 
+            width: 80%; 
+            margin: 0 auto; 
+        }
+        .progress { 
+            width: 100%; 
+            height: 4px; 
+            background: #333333; /* Warna abu-abu gelap */
+            margin-bottom: 8px;
+        }
+        .progress-bar { 
+            height: 100%; 
+            width: 0%; 
+            background: #ff0000; 
+        }
         
         #percentText { 
-            color: #fff; 
-            font-size: 11px; 
-            letter-spacing: 2px; 
-            opacity: 0.8; 
-            margin-top: 15px; 
-            font-weight: bold; 
+            color: #8b0000; 
+            font-size: 0.7rem; 
         }
     </style>
 </head>
@@ -112,41 +118,52 @@
 
     <div id="overlay">
         <button class="btn-start" onclick="initExperience()">SYNC SYSTEM</button>
-        <p style="color: #444; margin-top: 20px; font-size: 10px; letter-spacing: 1px;">AWAITING COMMAND...</p>
     </div>
 
     <div class="container" id="mainApp">
-        <h1>NEW GAME LIFE</h1>
+        <h1>KELULUSAN X PPLG 2</h1>
+        <p class="description">Waktu tidak akan pernah berhenti sampai kamu cukup menyesal untuk menyadarinya.</p>
 
         <div class="timer">
-            <div><div id="months">00</div><div class="label">MONTHS</div></div>
-            <div><div id="days">00</div><div class="label">DAYS</div></div>
-            <div><div id="hours">00</div><div class="label">HOURS</div></div>
-            <div><div id="mins">00</div><div class="label">MINS</div></div>
-            <div><div id="secs">00</div><div class="label">SECS</div></div>
-            <div><div id="ms">000</div><div class="label">MS</div></div>
+            <div class="timer-group">
+                <div id="months">00</div>
+                <div class="label">Months</div>
+            </div>
+            <div class="timer-group">
+                <div id="days">24</div>
+                <div class="label">Days</div>
+            </div>
+            <div class="timer-group">
+                <div id="mins">00</div>
+                <div class="label">Minutes</div>
+            </div>
+            <div class="separator">:</div>
+            <div class="timer-group">
+                <div id="secs">00</div>
+                <div class="label">Seconds</div>
+            </div>
+            <div class="timer-group">
+                <div id="ms">000</div>
+                <div class="label">Ms</div>
+            </div>
         </div>
 
         <div class="progress-container">
             <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-            <div id="percentText">0.0000000% COMPLETED</div>
+            <div id="percentText">0.0% complete</div>
         </div>
     </div>
 
     <script>
-        // Link audio dari Pixabay - Pastikan internet nyala
-        const tickingAudio = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_7306236b2d.mp3"); 
+        // Pastikan nama file audio sama persis
+        const tickingAudio = new Audio("dragon-studio-slow-cinematic-clock-ticking-405471 (1).mp3"); 
         tickingAudio.loop = true;
 
-        const targetDate = new Date("2028-05-05T16:00:00+07:00");
+        const targetDate = new Date("2028-05-05T16:00:00");
         const startDate = new Date("2026-04-10T19:43:00");
 
         function initExperience() {
-            // Memulai audio
-            tickingAudio.play().catch(e => {
-                console.log("Gagal memutar suara, butuh interaksi user atau cek internet.");
-            });
-
+            tickingAudio.play().catch(e => console.log("Audio error"));
             document.getElementById('overlay').style.opacity = '0';
             setTimeout(() => {
                 document.getElementById('overlay').style.display = 'none';
@@ -160,22 +177,18 @@
 
             if (diff <= 0) {
                 document.getElementById('mainApp').innerHTML = "<h1>GAME START</h1>";
-                tickingAudio.pause();
                 return;
             }
 
-            const totalMs = diff;
-            const months = Math.floor(totalMs / (1000 * 60 * 60 * 24 * 30.44));
-            const days = Math.floor((totalMs / (1000 * 60 * 60 * 24)) % 30.44);
-            const hours = Math.floor((totalMs / (1000 * 60 * 60)) % 24);
-            const mins = Math.floor((totalMs / (1000 * 60)) % 60);
-            const secs = Math.floor((totalMs / 1000) % 60);
-            const ms = Math.floor(totalMs % 1000);
+            const months = Math.floor(diff / (1000 * 60 * 60 * 24 * 30.44));
+            const days = Math.floor((diff / (1000 * 60 * 60 * 24)) % 30.44);
+            const mins = Math.floor(diff / (1000 * 60)); // Menit total seperti di gambar
+            const secs = Math.floor((diff / 1000) % 60);
+            const ms = Math.floor(diff % 1000);
 
-            document.getElementById("months").innerText = String(months).padStart(2, '0');
-            document.getElementById("days").innerText = String(days).padStart(2, '0');
-            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
-            document.getElementById("mins").innerText = String(mins).padStart(2, '0');
+            document.getElementById("months").innerText = months;
+            document.getElementById("days").innerText = days;
+            document.getElementById("mins").innerText = mins;
             document.getElementById("secs").innerText = String(secs).padStart(2, '0');
             document.getElementById("ms").innerText = String(ms).padStart(3, '0');
 
@@ -183,13 +196,12 @@
             const elapsed = now - startDate;
             const percent = Math.max(0, (elapsed / totalDuration) * 100);
 
-            document.getElementById("progressBar").style.width = Math.min(percent, 100) + "%";
-            document.getElementById("percentText").innerText = percent.toFixed(7) + "% COMPLETED";
+            document.getElementById("progressBar").style.width = percent + "%";
+            document.getElementById("percentText").innerText = percent.toFixed(1) + "% complete";
         }
 
-        setInterval(updateCountdown, 30);
+        setInterval(updateCountdown, 33);
         updateCountdown();
     </script>
 </body>
 </html>
-
