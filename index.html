@@ -7,17 +7,22 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* --- PENGATURAN BACKGROUND & WARNA --- */
         body {
-            --bg-file: 'background.jpg'; /*
-            --text-color: #ff0000; 
-            
             height: 100vh;
             width: 100%;
             font-family: Arial, sans-serif;
-            color: var(--text-color);
-            background: url(var(--bg-file)) no-repeat center center fixed;
+            color: #ff0000;
+            
+            /* WARNA CADANGAN HITAM AGAR TIDAK PUTIH LAGI */
+            background-color: #000000; 
+            
+            /* LANGSUNG PANGGIL NAMA FILE GAMBAR KAMU */
+            background-image: url('background.jpg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-attachment: fixed;
             background-size: cover;
+            
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,7 +30,7 @@
             position: relative;
         }
 
-        /* Lapisan hitam */
+        /* Lapisan Hitam Transparan agar teks tetap jelas terbaca */
         body::before {
             content: '';
             position: absolute;
@@ -34,116 +39,55 @@
             z-index: 1;
         }
 
-        /* --- TAMPILAN AWAL (OVERLAY) --- */
+        /* TOMBOL AWAL (OVERLAY) */
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background: #000;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 99;
-            /* Animasi dihapus agar instan */
         }
 
         .btn-start {
             background: transparent;
-            color: var(--text-color);
-            border: 2px solid var(--text-color);
+            color: #ff0000;
+            border: 2px solid #ff0000;
             padding: 15px 30px;
             cursor: pointer;
             text-align: center;
         }
 
-        .btn-start h2 {
-            font-size: 1.5rem;
-            letter-spacing: 3px;
-            margin-bottom: 5px;
-        }
+        .btn-start h2 { font-size: 1.5rem; letter-spacing: 3px; margin-bottom: 5px; }
+        .btn-start p { font-size: 0.7rem; text-transform: uppercase; opacity: 0.8; }
 
-        .btn-start p {
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            opacity: 0.8;
-        }
-
-        /* --- KONTEN UTAMA --- */
+        /* KONTEN UTAMA */
         .container {
             text-align: center;
             width: 95%;
             max-width: 800px;
-            display: none; /* Disembunyikan dulu */
+            display: none; 
             z-index: 2;
         }
 
-        h1 { 
-            font-size: clamp(1.4rem, 5vw, 2rem);
-            margin-bottom: 8px; 
-            font-weight: normal;
-            letter-spacing: 1px;
-        }
-
-        .description {
-            color: #8b0000;
-            font-size: clamp(0.65rem, 2.5vw, 0.8rem);
-            margin-bottom: 45px;
-            max-width: 450px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.4;
-        }
+        h1 { font-size: clamp(1.4rem, 5vw, 2.2rem); margin-bottom: 10px; letter-spacing: 1px; }
+        .description { color: #8b0000; font-size: 0.8rem; margin-bottom: 40px; }
         
         .timer { 
-            display: flex; 
-            gap: 12px; 
+            display: flex; gap: 10px; 
             font-size: clamp(1.8rem, 8vw, 3.2rem); 
-            justify-content: center; 
-            align-items: baseline;
-            margin-bottom: 25px;
+            justify-content: center; align-items: baseline; margin-bottom: 25px;
         }
 
-        .timer-group {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 55px;
-        }
+        .timer-group { display: flex; flex-direction: column; align-items: center; min-width: 55px; }
+        .label { font-size: 0.5rem; color: #8b0000; margin-top: 5px; text-transform: uppercase; }
+        .separator { font-size: 1.5rem; padding-bottom: 15px; opacity: 0.4; }
 
-        .label { 
-            font-size: 0.45rem; 
-            color: #8b0000; 
-            margin-top: 5px;
-            text-transform: uppercase;
-        }
-
-        .separator {
-            font-size: 1.5rem;
-            padding-bottom: 18px;
-            opacity: 0.4;
-        }
-
-        .progress-container { 
-            width: 80%; 
-            margin: 0 auto; 
-        }
-        .progress { 
-            width: 100%; 
-            height: 3px; 
-            background: #111;
-            margin-bottom: 8px;
-        }
-        .progress-bar { 
-            height: 100%; 
-            width: 0%; 
-            background: #444; 
-        }
-        
-        #percentText { 
-            color: #8b0000; 
-            font-size: 0.6rem; 
-        }
+        .progress-container { width: 80%; margin: 0 auto; }
+        .progress { width: 100%; height: 3px; background: #222; margin-bottom: 8px; }
+        .progress-bar { height: 100%; width: 0%; background: #555; }
+        #percentText { color: #8b0000; font-size: 0.6rem; }
     </style>
 </head>
 <body>
@@ -156,7 +100,7 @@
     </div>
 
     <div class="container" id="mainApp">
-        <h1>KELULUSAN PPLG 2</h1>
+        <h1>KELULUSAN X PPLG 2</h1>
         <p class="description">Waktu tidak akan pernah berhenti sampai kamu cukup menyesal untuk menyadarinya.</p>
 
         <div class="timer">
@@ -193,20 +137,22 @@
         const tickingAudio = new Audio("dragon-studio-slow-cinematic-clock-ticking-405471 (1).mp3"); 
         tickingAudio.loop = true;
 
+        // Anti-jeda suara
         tickingAudio.addEventListener('timeupdate', function(){
-            var buffer = 0.50; 
+            var buffer = 0.35; 
             if(this.currentTime > this.duration - buffer){
                 this.currentTime = 0;
                 this.play();
             }
         });
 
+        // WAKTU WIB (PURWOKERTO)
         const targetDate = new Date("2028-05-05T16:00:00+07:00").getTime();
         const startDate = new Date("2026-05-10T22:28:00+07:00").getTime();
 
         function initExperience() {
             tickingAudio.play();
-            // 
+            // Instan tanpa animasi redup
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('mainApp').style.display = 'block';
         }
@@ -235,7 +181,6 @@
             const totalDuration = targetDate - startDate;
             const elapsed = now - startDate;
             let percent = (elapsed / totalDuration) * 100;
-
             if (percent < 0) percent = 0;
             if (percent > 100) percent = 100;
 
